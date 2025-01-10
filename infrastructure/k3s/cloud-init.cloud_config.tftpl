@@ -1,0 +1,26 @@
+#cloud-config
+system_info:
+  default_user:
+    name: ${name}         # The default user created on the system.
+    primary_group: ${name}  # The primary group for the user.
+    groups: users, sudo         # Additional groups the user belongs to.
+    shell: /bin/bash            # User's default shell.
+    ssh_authorized_keys:
+      - ${ssh_key}  # SSH public key for authentication.
+    lock_passwd: true           # Disables password-based login for the user.
+    sudo: ALL=(ALL) NOPASSWD:ALL # The user has sudo privileges without requiring a password.
+
+users:
+  - default                      # The default user is defined.
+
+disable_root: true               # Disables root login.
+ssh_pwauth: false                # Disables SSH password authentication.
+
+write_files:                      # Custom SSH configuration.
+  - path: /etc/ssh/sshd_config.d/zz-cloud-init.conf
+    content: |
+      Port 22                 
+      AllowAgentForwarding yes
+      AllowTcpForwarding yes
+      PermitTunnel yes
+      TCPKeepAlive yes
