@@ -1,0 +1,8 @@
+---
+- name: Include tasks for control nodes
+  when: "'control' in group_names"
+  include_tasks: server.yml
+
+- name: Include tasks for worker nodes
+  when: "'workers' in group_names"
+  include_tasks: worker.yml

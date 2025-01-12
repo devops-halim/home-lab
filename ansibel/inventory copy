@@ -1,0 +1,9 @@
+[control]
+public_ip ansible_user=user_name
+
+
+[workers]
+1.2.3.4 ansible_user=user_name
+5.6.7.8 ansible_user=user_name
+
+  

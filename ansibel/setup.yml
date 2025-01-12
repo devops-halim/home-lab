@@ -1,0 +1,37 @@
+# ---
+# - name: Install and configure K3s cluster
+#   hosts: all
+#   become: true
+#   roles:
+#     - install_k3s
+# # ansible-playbook -i inventory.yml setup.yml
+---
+
+
+- name: Install K3s server on control nodes
+  hosts: control
+  become: true
+  vars:
+    mysql_user: "k3s_user"
+    mysql_password: "secure_password"
+    mysql_host: "192.168.178.50"
+    mysql_port: 3306
+    mysql_database: "k3s"
+    #load_balancer_ip: "192.168.1.100"
+  roles:
+    - install_k3s
+
+
+
+- name: Install K3s on worker nodes
+  hosts: workers
+  become: true
+  vars:
+    mysql_user: "k3s_user"
+    mysql_password: "secure_password"
+    mysql_host: "192.168.178.50"
+    mysql_port: 3306
+    mysql_database: "k3s"
+    #load_balancer_ip: "192.168.1.100"
+  roles:
+    - install_k3s
