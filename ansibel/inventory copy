@@ -1,5 +1,5 @@
 [control]
-public_ip ansible_user=user_name
+public_ip ansible_host=public_ip ansible_user=user_name
 
 
 [workers]

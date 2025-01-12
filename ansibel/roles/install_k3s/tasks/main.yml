@@ -3,6 +3,10 @@
   when: "'control' in group_names"
   include_tasks: server.yml
 
+- name: Include tasks for copying kubeconfig on control nodes
+  when: "'control' in group_names"
+  include_tasks: kubeconfig.yml
+
 - name: Include tasks for worker nodes
   when: "'workers' in group_names"
   include_tasks: worker.yml

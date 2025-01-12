@@ -14,9 +14,9 @@
   vars:
     mysql_user: "k3s_user"
     mysql_password: "secure_password"
-    mysql_host: "192.168.178.50"
+    mysql_host: "192.168.1.20"
     mysql_port: 3306
-    mysql_database: "k3s"
+    mysql_database: "k3s_db"
     #load_balancer_ip: "192.168.1.100"
   roles:
     - install_k3s
@@ -29,9 +29,9 @@
   vars:
     mysql_user: "k3s_user"
     mysql_password: "secure_password"
-    mysql_host: "192.168.178.50"
+    mysql_host: "192.168.1.20"
     mysql_port: 3306
-    mysql_database: "k3s"
+    mysql_database: "k3s_db"
     #load_balancer_ip: "192.168.1.100"
   roles:
     - install_k3s

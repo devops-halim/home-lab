@@ -3,7 +3,7 @@
 
 - name: Download and install K3s server with external MySQL
   shell: |
-    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644 K3S_DATASTORE_ENDPOINT="mysql://{{ mysql_user }}:{{ mysql_password }}@tcp({{ mysql_host }}:{{ mysql_port }})/{{ mysql_database }}" " sh -
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=172.15.2.22 --flannel-iface=eth0" K3S_DATASTORE_ENDPOINT="mysql://{{ mysql_user }}:{{ mysql_password }}@tcp({{ mysql_host }}:{{ mysql_port }})/{{ mysql_database }}" sh -
   args:
     creates: /usr/local/bin/k3s
 
