@@ -18,7 +18,8 @@ run_as_sudo apt-get install -y \
     curl \
     gnupg \
     lsb-release \
-    jq
+    jq \
+    curl
 
 # Install Docker
 echo "Installing Docker..."
@@ -52,3 +53,6 @@ fi
 # Final message
 echo "Docker and Docker Compose installation complete."
 echo "Please log out and log back in for group changes to take effect."
+
+
+
