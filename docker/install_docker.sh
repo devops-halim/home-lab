@@ -11,22 +11,23 @@ run_as_sudo() {
 
 # Update and install prerequisites
 echo "Updating package list and installing prerequisites..."
-run_as_sudo apt-get update -y
-run_as_sudo apt-get install -y \
+run_as_sudo apt update -y
+run_as_sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg \
     lsb-release \
-    jq \
-    curl
+    jq
 
-# Install Docker
-echo "Installing Docker..."
-run_as_sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | run_as_sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-run_as_sudo apt-get update -y
-run_as_sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+# Remove any existing Docker repository to avoid conflicts
+echo "Cleaning up any old Docker repositories..."
+run_as_sudo rm -f /etc/apt/sources.list.d/docker.list
+
+# Use Docker's official script for installation
+echo "Running Docker's installation script..."
+curl -fsSL https://get.docker.com -o get-docker.sh
+run_as_sudo sh get-docker.sh
 
 # Verify Docker installation
 echo "Verifying Docker installation..."
@@ -53,6 +54,3 @@ fi
 # Final message
 echo "Docker and Docker Compose installation complete."
 echo "Please log out and log back in for group changes to take effect."
-
-
-
