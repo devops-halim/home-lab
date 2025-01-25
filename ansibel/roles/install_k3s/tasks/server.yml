@@ -3,7 +3,9 @@
 
 - name: Download and install K3s server with external MySQL
   shell: |
-    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=172.15.2.2 --flannel-iface=ens18" K3S_DATASTORE_ENDPOINT="mysql://{{ mysql_user }}:{{ mysql_password }}@tcp({{ mysql_host }}:{{ mysql_port }})/{{ mysql_database }}" sh -
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.178.55 --flannel-iface=ens18" K3S_DATASTORE_ENDPOINT="mysql://{{ mysql_user }}:{{ mysql_password }}@tcp({{ mysql_host }}:{{ mysql_port }})/{{ mysql_database }}" sh -
+    curl -sfL https://get.k3s.io | sh -s - server \
+  --datastore-endpoint="mysql://k3s_user:secure_password@tcp(192.168.178.50:3306)/k3s_db"
   args:
     creates: /usr/local/bin/k3s
 
@@ -15,18 +17,18 @@
   debug:
     msg: "Node token is {{ k3s_node_token.stdout }}"
 
-##################### Add another master node #####################
+# ##################### Add another master node #####################
 
 # - name: Fetch K3S node token from the first control node
 #   delegate_to: "{{ groups['control'][0] }}"
 #   command: cat /var/lib/rancher/k3s/server/node-token
-#   register: k3s_node_token
+#   register: k3s_node_tokenz
 #   run_once: true
 
 # - name: Install K3s server on additional control nodes
 #   when: inventory_hostname != groups['control'][0]
 #   shell: |
-#     curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --node-ip={{ ansible_host }} --flannel-iface=ens18 --server https://{{ groups['control'][0] }}:6443" K3S_TOKEN="{{ k3s_node_token.stdout }}" sh -
+#     curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --node-ip=192.168.178.59 --flannel-iface=ens18 --server https://{{ groups['control'][0] }}:6443" K3S_TOKEN="{{ k3s_node_token.stdout }}" sh -
 #   args:
 #     creates: /usr/local/bin/k3s
 

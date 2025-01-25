@@ -6,3 +6,5 @@ provider.tf
 inventory
 inventory.yml
 inventory.yaml
+terraform.tfstate.d
+.github
