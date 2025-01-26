@@ -1,3 +1,4 @@
+# https://docs.gitlab.com/ee/install/docker/installation.html
 version: '3.8'
 
 services:
@@ -6,24 +7,21 @@ services:
     container_name: gitlab
     restart: always
     hostname: gitlab.example.com  # Change this to your domain or IP
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://gitlab.example.com'
     ports:
       - '80:80'   # HTTP
-      - '443:443' # HTTPS
-      - '22:22'   # SSH
+      #- '443:443' # HTTPS
+      - '222:22'   # SSH
     volumes:
-      - gitlab-data:/var/opt/gitlab
-      - gitlab-logs:/var/log/gitlab
-      - gitlab-config:/etc/gitlab
+      - ./data:/var/opt/gitlab
+      - ./logs:/var/log/gitlab
+      - ./config:/etc/gitlab
     networks:
       - gitlab_network
 
-volumes:
-  gitlab-data:
-  gitlab-logs:
-  gitlab-config:
+# volumes:
+#   gitlab-data:
+#   gitlab-logs:
+#   gitlab-config:
 
 networks:
   gitlab_network:

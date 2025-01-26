@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    volumes:
+      - ./config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    # environment:
+    #   - CI_SERVER_URL=https://gitlab.com
+    #   - REGISTRATION_TOKEN=your_registration_token
+    #   - RUNNER_NAME=your_runner_name
+    #   - RUNNER_EXECUTOR=docker
+    #   - DOCKER_IMAGE=alpine:latest
